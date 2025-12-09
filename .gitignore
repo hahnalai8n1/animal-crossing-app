@@ -42,3 +42,7 @@ app-example
 # generated native folders
 /ios
 /android
+
+# Ignore local image materials
+IMG_6263.jpg
+IMG_6264.jpg
