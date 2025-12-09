@@ -1,11 +1,11 @@
 {
   "expo": {
-    "name": "Pomodoro",
-    "slug": "Pomodoro",
+    "name": "Animal Crossing",
+    "slug": "Animal Crossing",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "pomodoro",
+    "scheme": "Animal Crossing",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
