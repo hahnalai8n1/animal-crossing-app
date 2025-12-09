@@ -1,50 +1,45 @@
-# Welcome to your Expo app 👋
+# 🏝️ Animal Crossing App
+A beautiful, pastel-themed React Native app for browsing Animal Crossing villagers and museum collections. Built with **Expo**, **TypeScript**, and the **Nookipedia API**.
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/e6fde7ec-c31a-4fc3-aace-b64bac98f5d8" width="350" alt="Home Screen" />&nbsp;&nbsp;&nbsp;&nbsp;
+  <img src="https://github.com/user-attachments/assets/6edec0d8-9ddb-4912-8262-7a3bef05d7b4" width="350" alt="Villagers List" />
+</div>
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+## ✨ Features
+- **Villager Directory**: Browse villagers with a unique "pop-out" UI design.
+- **Museum Collection**: View Fish, Sea Creatures, Bugs, and Art.
+- **Pastel Aesthetics**: Custom Morandi color palette for a soothing visual experience.
+- **Data Source**: Real-time data fetching from Nookipedia API.
 
-## Get started
+## 🛠️ Tech Stack
+- **Framework**: React Native / Expo (Expo Router)
+- **Language**: TypeScript
+- **Styling**: StyleSheet (Flexbox)
+- **API**: Nookipedia API
 
-1. Install dependencies
+## 🚀 Getting Started
 
-   ```bash
-   npm install
-   ```
-
-2. Start the app
-
-   ```bash
-   npx expo start
-   ```
-
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
-
+1. **Clone the repository**
 ```bash
-npm run reset-project
+git clone https://github.com/你的用户名/animal-crossing-app.git
+cd animal-crossing-app
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+2. **Install dependencies**
+```bash
+npm install
+```
 
-## Learn more
+3. **Setup Environment Variables**
+- Create a `.env` file in the root directory.
 
-To learn more about developing your project with Expo, look at the following resources:
+- Add your Nookipedia API Key:
+```bash
+EXPO_PUBLIC_API_KEY=your_api_key_here
+```
+*(You can request an API key from Nookipedia)*
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+4. **Run the app**
+```bash
+npx expo start
+```
