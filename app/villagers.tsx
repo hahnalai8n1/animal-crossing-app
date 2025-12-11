@@ -1,57 +1,67 @@
 import { useEffect, useState } from 'react';
 import { View, FlatList, Image, Text, StyleSheet, ActivityIndicator } from 'react-native';
-import { Stack } from 'expo-router';
-
-const PASTEL_COLORS = [
-  '#FFEBEE', '#E3F2FD', '#F3E5F5', '#E8F5E9', '#FFF3E0', 
-  '#F1F8E9', '#E0F7FA', '#FFF8E1', '#F9FBE7', '#ECEFF1',
-];
+import { getPastelColor } from './_colors';
+import { Villager } from './_types';
 
 const API_KEY = process.env.EXPO_PUBLIC_API_KEY;
 
+
 export default function VillagersScreen() {
-  const [villagers, setVillagers] = useState([]);
+  const [villagers, setVillagers] = useState<Villager[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch('https://api.nookipedia.com/villagers?limit=50', {
-      headers: { 'X-API-KEY': API_KEY, 'Accept-Version': '1.0.0' }
-    })
-    .then(res => res.json())
-    .then(data => {
-      if(Array.isArray(data)) setVillagers(data);
-      setLoading(false);
-    })
-    .catch(e => console.error(e));
+    fetchVillagers();
   }, []);
 
+  const fetchVillagers = async () => {
+    try {
+      const response = await fetch('https://api.nookipedia.com/villagers?limit=50', {
+        headers: { 
+          'X-API-KEY': API_KEY || '', 
+          'Accept-Version': '1.0.0' 
+        }
+      });
+      
+      const data = await response.json();
+      
+      if (Array.isArray(data)) {
+        setVillagers(data);
+      }
+    } catch (e) {
+      console.error("Error fetching villagers:", e);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   if (loading) {
-    return <View style={styles.center}><ActivityIndicator size="large" color="#4db6ac"/></View>;
+    return (
+      <View style={styles.center}>
+        <ActivityIndicator size="large" color="#5D4037"/>
+      </View>
+    );
   }
 
   return (
     <View style={styles.container}>
-      <Stack.Screen options={{ title: 'All Villagers', headerBackTitle: 'Home', headerTintColor: '#4db6ac' }} />
-
       <FlatList
         data={villagers}
-        keyExtractor={(item: any) => item.id}
+        keyExtractor={(item) => item.id}
         numColumns={2} 
-        // Increase top padding to prevent the 'head' of the first row from being cut off
         contentContainerStyle={{ padding: 15, paddingTop: 40 }}
         columnWrapperStyle={{ justifyContent: 'space-between' }} 
         renderItem={({ item, index }) => {
-          const bgColor = PASTEL_COLORS[index % PASTEL_COLORS.length];
+    
+          const bgColor = getPastelColor(index);
 
           return (
             <View style={[styles.card, { backgroundColor: bgColor }]}>
-              {/* Floating image: half-head effect */}
               <Image 
                 source={{ uri: item.image_url }} 
                 style={styles.floatingImage} 
                 resizeMode="contain" 
               />
-              
               <View style={styles.textWrapper}>
                 <Text style={styles.name}>{item.name}</Text>
                 <Text style={styles.quote} >
@@ -69,19 +79,17 @@ export default function VillagersScreen() {
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#fff' },
   center: { flex: 1, justifyContent: 'center', alignItems: 'center' },
-  
   card: {
     width: '48%', 
     marginBottom: 60, 
     marginTop: 20,    
-    borderRadius: 20, // Rounded corners
+    borderRadius: 20, 
     padding: 20,
     alignItems: 'center',
-    justifyContent: 'flex-start', // Align content from the top
+    justifyContent: 'flex-start',
     minHeight: 160, 
     paddingBottom: 10,
   },
-  
   floatingImage: { 
     width: 120,      
     height: 120, 
@@ -89,14 +97,10 @@ const styles = StyleSheet.create({
     top: -45,       
     zIndex: 1, 
   },
-  
   textWrapper: {
-    // Calculate distance. Image height 100 (approx), top -40, overlaps inside by 60.
-    // Set to around 60 to let text hug the image tightly
     marginTop: 65, 
     alignItems: 'center',
   },
-  
   name: { 
     fontSize: 16, 
     fontWeight: 'bold', 

@@ -11,35 +11,15 @@ import {
 } from 'react-native';
 import { useRouter, Stack } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
-
-// New color generation function ===
-// the index determines the hue, saturation is controlled at 35%, and lightness is controlled at 92%.
-const getPastelColor = (index: number) => {
-  // Use the golden angle (137.5 degrees) to offset colors and prevent adjacent colors from being too close.
-  const hue = (index * 137.5) % 360; 
-  return `hsl(${hue}, 35%, 92%)`;
-};
-
-const MUSEUM_CATEGORIES = [
-  { id: 'fish', label: 'Fish 🐟' },
-  { id: 'sea', label: 'Sea 🤿' },
-  { id: 'bugs', label: 'Bugs 🦋' },
-  { id: 'art', label: 'Art 🎨' },
-];
-
-interface Villager {
-  id: string;
-  name: string;
-  image_url: string;
-  quote: string;
-}
+import { getPastelColor } from './_colors';
+import { Villager, MUSEUM_CATEGORIES, MuseumItem } from './_types';
 
 export default function Index() {
   const router = useRouter();
   const [villagers, setVillagers] = useState<Villager[]>([]);
   
   const [museumTab, setMuseumTab] = useState('fish');
-  const [museumData, setMuseumData] = useState<any[]>([]);
+  const [museumData, setMuseumData] = useState<MuseumItem[]>([]);
   const [loading, setLoading] = useState(true);
 
   const API_KEY = process.env.EXPO_PUBLIC_API_KEY;
@@ -57,7 +37,7 @@ export default function Index() {
     try {
       const response = await fetch(
         'https://api.nookipedia.com/villagers?limit=10', 
-        { headers: { 'X-API-KEY': API_KEY, 'Accept-Version': '1.0.0' } }
+        { headers: { 'X-API-KEY': API_KEY || '', 'Accept-Version': '1.0.0' } }
       );
       const json = await response.json();
       if (Array.isArray(json)) {
@@ -74,7 +54,7 @@ export default function Index() {
       const url = `https://api.nookipedia.com/nh/${category}`;
       const response = await fetch(
         url, 
-        { headers: { 'X-API-KEY': API_KEY, 'Accept-Version': '1.0.0' } }
+        { headers: { 'X-API-KEY': API_KEY || '', 'Accept-Version': '1.0.0' } }
       );
       const json = await response.json();
       
@@ -97,7 +77,7 @@ export default function Index() {
   if (loading) {
     return (
       <View style={styles.center}>
-        <ActivityIndicator size="large" color="#5D4037" />
+        <ActivityIndicator size="large" color="#4db6ac" />
       </View>
     );
   }

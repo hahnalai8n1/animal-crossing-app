@@ -9,25 +9,14 @@ import {
   TouchableOpacity 
 } from 'react-native';
 import { Stack } from 'expo-router';
-
-// Pastel colors
-const PASTEL_COLORS = [
-  '#E3F2FD', '#F3E5F5', '#E8F5E9', '#FFF3E0', 
-  '#FFEBEE', '#F1F8E9', '#E0F7FA', '#FFF8E1', 
-  '#d5e8f5b7', '#F9FBE7'
-];
+import { getPastelColor } from './_colors';
+import { MuseumItem, MUSEUM_CATEGORIES } from './_types';
 
 const API_KEY = process.env.EXPO_PUBLIC_API_KEY;
 
-const CATEGORIES = [
-  { id: 'fish', label: 'Fish 🐟' },
-  { id: 'sea', label: 'Sea 🤿' },
-  { id: 'bugs', label: 'Bugs 🦋' },
-  { id: 'art', label: 'Art 🎨' },
-];
 
 export default function MuseumScreen() {
-  const [data, setData] = useState([]);
+  const [data, setData] = useState<MuseumItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState('fish');
 
@@ -40,7 +29,7 @@ export default function MuseumScreen() {
     try {
       const url = `https://api.nookipedia.com/nh/${category}`;
       const response = await fetch(url, {
-        headers: { 'X-API-KEY': API_KEY, 'Accept-Version': '1.0.0' }
+        headers: { 'X-API-KEY': API_KEY || '', 'Accept-Version': '1.0.0' }
       });
       const json = await response.json();
       
@@ -71,7 +60,7 @@ export default function MuseumScreen() {
 
       {/* === Category Tabs === */}
       <View style={styles.tabContainer}>
-        {CATEGORIES.map((cat) => (
+        {MUSEUM_CATEGORIES.map((cat) => (
           <TouchableOpacity 
             key={cat.id} 
             onPress={() => setActiveTab(cat.id)}
@@ -104,7 +93,7 @@ export default function MuseumScreen() {
           columnWrapperStyle={{ gap: '3.5%' }}
           showsVerticalScrollIndicator={false}
           renderItem={({ item, index }) => {
-            const bgColor = PASTEL_COLORS[index % PASTEL_COLORS.length];
+            const bgColor = getPastelColor(index + 20);
 
             return (
               <View style={[styles.card, { backgroundColor: bgColor }]}>
