@@ -49,6 +49,7 @@ export default function VillagersScreen() {
         data={villagers}
         keyExtractor={(item) => item.id}
         numColumns={2} 
+        // Increase top padding to prevent the 'head' of the first row from being cut off
         contentContainerStyle={{ padding: 15, paddingTop: 40 }}
         columnWrapperStyle={{ justifyContent: 'space-between' }} 
         renderItem={({ item, index }) => {
@@ -57,6 +58,7 @@ export default function VillagersScreen() {
 
           return (
             <View style={[styles.card, { backgroundColor: bgColor }]}>
+              {/* Floating image: half-head effect */}
               <Image 
                 source={{ uri: item.image_url }} 
                 style={styles.floatingImage} 
@@ -98,6 +100,8 @@ const styles = StyleSheet.create({
     zIndex: 1, 
   },
   textWrapper: {
+    // Calculate distance. Image height 100 (approx), top -40, overlaps inside by 60.
+    // Set to around 60 to let text hug the image tightly
     marginTop: 65, 
     alignItems: 'center',
   },

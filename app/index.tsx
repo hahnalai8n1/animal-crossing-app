@@ -196,7 +196,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingHorizontal: 20, marginBottom: 15, marginTop: 15
   },
   sectionTitle: { fontSize: 22, fontWeight: 'bold', color: '#333' },
-  showAll: { fontSize: 14, color: '#4db6ac', fontWeight: '600' }, 
+  showAll: { fontSize: 14, color: '#5d4037c0', fontWeight: '600' }, 
   
   // === Villager Card ===
   villagerCard: {
