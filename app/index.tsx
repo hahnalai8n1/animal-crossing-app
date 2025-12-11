@@ -12,19 +12,19 @@ import {
 import { useRouter, Stack } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-// Morandi Color Palette
-const PASTEL_COLORS = [
-  '#FFEBEE', // Light Pink
-  '#E3F2FD', // Light Blue
-  '#F3E5F5', // Light Purple
-  '#E8F5E9', // Light Green
-  '#FFF3E0', // Light Orange
-  '#E0F7FA', // Light Cyan
-  '#F1F8E9', // Light Yellow-Green
-  '#FFF8E1', // Light Amber
-  '#d5e8f5b7', // Light Blue-Grey
-  '#F9FBE7', // Light Lemon
-  '#e4eaeeff', // Light Blue-Grey
+// New color generation function ===
+// the index determines the hue, saturation is controlled at 35%, and lightness is controlled at 92%.
+const getPastelColor = (index: number) => {
+  // Use the golden angle (137.5 degrees) to offset colors and prevent adjacent colors from being too close.
+  const hue = (index * 137.5) % 360; 
+  return `hsl(${hue}, 35%, 92%)`;
+};
+
+const MUSEUM_CATEGORIES = [
+  { id: 'fish', label: 'Fish 🐟' },
+  { id: 'sea', label: 'Sea 🤿' },
+  { id: 'bugs', label: 'Bugs 🦋' },
+  { id: 'art', label: 'Art 🎨' },
 ];
 
 interface Villager {
@@ -37,7 +37,8 @@ interface Villager {
 export default function Index() {
   const router = useRouter();
   const [villagers, setVillagers] = useState<Villager[]>([]);
-  const [museumTab, setMuseumTab] = useState<'fish' | 'sea' | 'bugs' | 'art'>('fish');
+  
+  const [museumTab, setMuseumTab] = useState('fish');
   const [museumData, setMuseumData] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -96,7 +97,7 @@ export default function Index() {
   if (loading) {
     return (
       <View style={styles.center}>
-        <ActivityIndicator size="large" color="#4db6ac" />
+        <ActivityIndicator size="large" color="#5D4037" />
       </View>
     );
   }
@@ -128,7 +129,8 @@ export default function Index() {
           contentContainerStyle={{ paddingLeft: 20, paddingRight: 20, paddingBottom: 20 }}
           keyExtractor={(item, index) => item.id || index.toString()}
           renderItem={({ item, index }) => {
-            const bgColor = PASTEL_COLORS[index % PASTEL_COLORS.length];
+            // Generate colors using the new function
+            const bgColor = getPastelColor(index);
             return (
               <View style={[styles.villagerCard, { backgroundColor: bgColor }]}>
                 <Image 
@@ -150,25 +152,27 @@ export default function Index() {
         {/* ================= MUSEUM ================= */}
         <View style={[styles.sectionHeader, { marginTop: 0 }]}> 
           <Text style={styles.sectionTitle}>Museum</Text>
-          <Text style={styles.showAll}>Show all</Text>
+          <TouchableOpacity onPress={() => router.push('/museum')}>
+            <Text style={styles.showAll}>Show all</Text>
+          </TouchableOpacity>
         </View>
 
-        {/* Tabs */}
+        {/* === Tabs (Updated Style) === */}
         <View style={styles.tabContainer}>
-          {['fish', 'sea', 'bugs', 'art'].map((tab) => (
+          {MUSEUM_CATEGORIES.map((cat) => (
             <TouchableOpacity 
-              key={tab} 
-              onPress={() => setMuseumTab(tab as any)}
+              key={cat.id} 
+              onPress={() => setMuseumTab(cat.id)}
               style={[
                 styles.tabButton, 
-                museumTab === tab && styles.tabButtonActive
+                museumTab === cat.id && styles.tabButtonActive
               ]}
             >
               <Text style={[
                 styles.tabText, 
-                museumTab === tab && styles.tabTextActive
+                museumTab === cat.id && styles.tabTextActive
               ]}>
-                {tab === 'sea' ? 'Sea' : tab.charAt(0).toUpperCase() + tab.slice(1)}
+                {cat.label}
               </Text>
             </TouchableOpacity>
           ))}
@@ -177,18 +181,16 @@ export default function Index() {
         {/* Grid Container */}
         <View style={styles.gridContainer}>
           {museumData.map((item: any, index) => {
-             const bgColor = PASTEL_COLORS[(index + 3) % PASTEL_COLORS.length]; 
+             // The index plus the offset, ensures that it is different from the villager's color.
+             const bgColor = getPastelColor(index + 50); 
 
              return (
               <View key={index} style={[styles.museumCard, { backgroundColor: bgColor }]}>
-                
-                {/* Floating Image */}
                 <Image 
                   source={{ uri: item.image_url }} 
                   style={styles.floatingImageMuseum} 
                   resizeMode="contain"
                 />
-
                 <View style={styles.textWrapperMuseum}>
                   <Text style={styles.museumTitle} numberOfLines={1}>{item.name}</Text>
                 </View>
@@ -255,10 +257,8 @@ const styles = StyleSheet.create({
     zIndex: 1,
   },
   
-  // === Common Text Styles ===
   textWrapper: { marginTop: 85, alignItems: 'center', width: '100%' },
   
-  // Specific styles for Museum text
   textWrapperMuseum: { 
     width: '100%', 
     alignItems: 'flex-start', 
@@ -269,15 +269,33 @@ const styles = StyleSheet.create({
   cardTitle: { fontSize: 16, fontWeight: 'bold', color: '#5D4037', marginBottom: 4 },
   cardQuote: { fontSize: 10, color: '#8D6E63', textAlign: 'center', fontStyle: 'italic' },
   
-  // Smaller font for Museum
   museumTitle: { fontSize: 14, fontWeight: 'bold', color: '#5D4037' },
 
-  // === Tabs ===
-  tabContainer: { flexDirection: 'row', paddingHorizontal: 20, marginBottom: 10, justifyContent: 'space-between' },
-  tabButton: { paddingVertical: 6, paddingHorizontal: 10, borderRadius: 20, backgroundColor: 'transparent' },
-  tabButtonActive: { backgroundColor: '#E0F7FA' },
-  tabText: { fontSize: 13, color: '#999', fontWeight: '600' }, 
-  tabTextActive: { color: '#006064', fontWeight: 'bold' },
+  // === Updated Tab Styles ===
+  tabContainer: { 
+    flexDirection: 'row', 
+    paddingHorizontal: 20, 
+    marginBottom: 15, 
+    justifyContent: 'space-between' 
+  },
+  tabButton: { 
+    paddingVertical: 8,      
+    paddingHorizontal: 16,   
+    borderRadius: 15,        
+    backgroundColor: '#f5f5f5' 
+  },
+  tabButtonActive: { 
+    backgroundColor: '#E0F7FA' // Color when selected
+  },
+  tabText: { 
+    fontSize: 13, 
+    color: '#888', 
+    fontWeight: '600' 
+  }, 
+  tabTextActive: { 
+    color: '#006064', 
+    fontWeight: 'bold' 
+  },
   
   gridContainer: { flexDirection: 'row', flexWrap: 'wrap', paddingHorizontal: 15, justifyContent: 'space-between' },
 });
