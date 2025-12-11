@@ -1,8 +1,11 @@
 # 🏝️ Animal Crossing App
 A beautiful, pastel-themed React Native app for browsing Animal Crossing villagers and museum collections. Built with **Expo**, **TypeScript**, and the **Nookipedia API**.
 <div align="center">
-  <img src="https://github.com/user-attachments/assets/e6fde7ec-c31a-4fc3-aace-b64bac98f5d8" width="350" alt="Home Screen" />&nbsp;&nbsp;&nbsp;&nbsp;
-  <img src="https://github.com/user-attachments/assets/6edec0d8-9ddb-4912-8262-7a3bef05d7b4" width="350" alt="Villagers List" />
+  <img src="https://github.com/user-attachments/assets/749d05c8-433e-476c-9e40-551919fbe466" width="260" alt="Home Screen" />
+  &nbsp;&nbsp;
+  <img src="https://github.com/user-attachments/assets/67c18cba-7600-40e6-826b-e6e2b0ce0af9" width="260" alt="Villagers List" />
+  &nbsp;&nbsp;
+  <img src="https://github.com/user-attachments/assets/4b17f818-c0e8-42fd-874c-b0fbbbb00879" width="260" alt="Museum Collection" />
 </div>
 
 ## ✨ Features
@@ -21,7 +24,7 @@ A beautiful, pastel-themed React Native app for browsing Animal Crossing village
 
 1. **Clone the repository**
 ```bash
-git clone https://github.com/你的用户名/animal-crossing-app.git
+git clone https://github.com/your userID/animal-crossing-app.git
 cd animal-crossing-app
 ```
 
