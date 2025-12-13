@@ -43,6 +43,6 @@ app-example
 /ios
 /android
 
-# Ignore local image materials
+# 忽略本地的原始图片素材
 IMG_6263.jpg
 IMG_6264.jpg

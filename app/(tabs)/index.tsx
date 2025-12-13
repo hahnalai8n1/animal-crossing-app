@@ -11,8 +11,8 @@ import {
 } from 'react-native';
 import { useRouter, Stack } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { getPastelColor } from './_colors';
-import { Villager, MUSEUM_CATEGORIES, MuseumItem } from './_types';
+import { getPastelColor } from '../_colors';
+import { Villager, MUSEUM_CATEGORIES, MuseumItem } from '../_types';
 
 export default function Index() {
   const router = useRouter();
@@ -251,7 +251,6 @@ const styles = StyleSheet.create({
   
   museumTitle: { fontSize: 14, fontWeight: 'bold', color: '#5D4037' },
 
-  // === Updated Tab Styles ===
   tabContainer: { 
     flexDirection: 'row', 
     paddingHorizontal: 20, 
