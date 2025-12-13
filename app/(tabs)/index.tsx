@@ -193,8 +193,15 @@ const styles = StyleSheet.create({
   headerSubtitle: { fontSize: 14, color: '#888', marginTop: 5 },
 
   sectionHeader: {
-    flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingHorizontal: 20, marginBottom: 15, marginTop: 15
+    flexDirection: 'row', 
+    justifyContent: 'space-between', 
+    alignItems: 'center', 
+    paddingHorizontal: 20, 
+    // 👇 Shorten the distance between the title and the content below
+    marginBottom: 10, 
+    marginTop: 15
   },
+
   sectionTitle: { fontSize: 22, fontWeight: 'bold', color: '#333' },
   showAll: { fontSize: 14, color: '#5d4037c0', fontWeight: '600' }, 
   
@@ -223,8 +230,8 @@ const styles = StyleSheet.create({
     height: 70,           
     borderRadius: 18, 
     padding: 10, 
-    marginBottom: 15,     
-    marginTop: 20,        
+    marginBottom: 8,     
+    marginTop: 10,        
     alignItems: 'center', 
     justifyContent: 'flex-end', 
   },
@@ -254,7 +261,7 @@ const styles = StyleSheet.create({
   tabContainer: { 
     flexDirection: 'row', 
     paddingHorizontal: 20, 
-    marginBottom: 15, 
+    marginBottom: 10, 
     justifyContent: 'space-between' 
   },
   tabButton: { 
