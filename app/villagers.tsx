@@ -4,6 +4,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { getPastelColor } from './_colors';
 import { Villager } from './_types';
 import { useFavorites } from './FavoritesContext'; 
+import { Stack } from 'expo-router';
 
 const API_KEY = process.env.EXPO_PUBLIC_API_KEY;
 
@@ -58,6 +59,15 @@ export default function VillagersScreen() {
 
   return (
     <View style={styles.container}>
+      <Stack.Screen 
+        options={{ 
+          title: 'All Villagers',
+          headerBackTitle: 'Home',      
+          headerTintColor: '#5D4037',   
+          headerStyle: { backgroundColor: '#fff' },
+          headerShadowVisible: false,  
+        }} 
+      />
       {/* === Search Bar === */}
       <View style={styles.searchContainer}>
         <Ionicons name="search" size={20} color="#888" style={{ marginRight: 8 }} />
