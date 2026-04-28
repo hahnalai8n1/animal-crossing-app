@@ -66,11 +66,12 @@ EXPO_PUBLIC_API_KEY=your_api_key_here
 *(You can request an API key from Nookipedia)*
 
 4. **Run the app**
-To run the mobile version (iOS/Android) via Expo Go:
+
+   To run the mobile version (iOS/Android) via Expo Go:
 ```bash
-npx expo start
+   npx expo start
 ```
-To run the web version directly in your browser:
+   To run the web version directly in your browser:
 ```bash
-npx expo start --web
+   npx expo start --web
 ```
