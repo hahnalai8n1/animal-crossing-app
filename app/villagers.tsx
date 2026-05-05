@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import {
   ActivityIndicator,
   FlatList,
+  Image,
   StyleSheet,
   Text,
   TextInput,
@@ -13,9 +14,6 @@ import {
 import { getPastelColor } from './_colors';
 import { Villager } from './_types';
 import { useFavorites } from './FavoritesContext';
-
-// 🚀 1. Import expo-image to replace React Native's native Image component
-import { Image } from 'expo-image';
 
 const API_KEY = process.env.EXPO_PUBLIC_API_KEY;
 
@@ -47,10 +45,8 @@ export default function VillagersScreen() {
 
   const fetchVillagers = async () => {
     try {
-      // 🚀 2. Add the &thumbsize=200 parameter to the API request.
-      // This tells the Nookipedia server to replace all image_urls with compressed, smaller images, greatly saving network bandwidth!
       const response = await fetch(
-        'https://api.nookipedia.com/villagers?limit=100&thumbsize=200',
+        'https://api.nookipedia.com/villagers?limit=100',
         {
           headers: { 'X-API-KEY': API_KEY || '', 'Accept-Version': '1.0.0' },
         },
@@ -126,13 +122,10 @@ export default function VillagersScreen() {
                 />
               </TouchableOpacity>
 
-              {/* 🚀 3. Use the expo-image component, adding disk caching and fade-in animation effects */}
               <Image
                 source={{ uri: item.image_url }}
                 style={styles.floatingImage}
-                contentFit="contain" // In expo-image, resizeMode is replaced by contentFit
-                transition={200} // There will be a smooth 200ms fade-in effect when the image loads
-                cachePolicy="memory-disk" // Enable the strongest caching strategy, so refreshing the page is almost instantaneous
+                resizeMode="contain"
               />
               <View style={styles.textWrapper}>
                 <Text style={styles.name}>{item.name}</Text>
@@ -181,7 +174,7 @@ const styles = StyleSheet.create({
     top: 10,
     right: 10,
     zIndex: 10,
-    backgroundColor: 'rgba(255,255,255,0.5)',
+    backgroundColor: 'rgba(255,255,255,0.5)', // Semi-transparent background makes it easier to see
     borderRadius: 15,
     padding: 4,
   },
